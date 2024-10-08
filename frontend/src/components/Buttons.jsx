@@ -7,7 +7,48 @@ function Buttons() {
 
     return (
         <div className="btn-container">
-            <button onClick={handleStart}>Begin the Collapse</button>
+            <div className="btn-items">
+                <button onClick={handleStart}></button>
+                <div className="btn-text">
+                    <p>Begin the Collapse</p>
+                </div>
+            </div>
+            <div className="btn-items">
+                <button onClick={handleStart}></button>
+                <div className="btn-text">
+                    <p>Begin the Collapse</p>
+                </div>
+            </div>
+            <div className="btn-items">
+                <button onClick={handleStart}></button>
+                <div className="btn-text">
+                    <p>Begin the Collapse</p>
+                </div>
+            </div>
+            <div className="btn-items">
+                <button onClick={handleStart}></button>
+                <div className="btn-text">
+                    <p>Begin the Collapse</p>
+                </div>
+            </div>
+            <div className="btn-items">
+                <button onClick={handleStart}></button>
+                <div className="btn-text">
+                    <p>Begin the Collapse</p>
+                </div>
+            </div>
+            <div className="btn-items">
+                <button onClick={handleStart}></button>
+                <div className="btn-text">
+                    <p>Begin the Collapse</p>
+                </div>
+            </div>
+            <div className="btn-items">
+                <button onClick={handleStart}></button>
+                <div className="btn-text">
+                    <p>Begin the Collapse</p>
+                </div>
+            </div>
         </div>
     );
 };

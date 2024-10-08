@@ -1,0 +1,21 @@
+.dictator-profile {
+  grid-area: Profile;
+  font-family: 'Retro';
+  margin: 25px 0 0 20px;
+  display: flex;
+  font-size: 15px;
+  gap: 15px;
+  width: 300px;
+  height: 110px;
+}
+
+.dictator-img {
+  width: 125px;
+  height: 125px;
+}
+
+.dictator-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

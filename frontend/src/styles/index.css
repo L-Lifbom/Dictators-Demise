@@ -6,13 +6,14 @@
 }
 
 @font-face {
-  font-family: 'Retro2';
+  font-family: 'RetroSmall';
   src: url('/fonts/retro2.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 :root {
+  --clr-text-light: #F6F8F7;
   --clr-dark-1: #000000;
   --clr-dark-2: #0f0f10;
   --clr-dark-3: #1c1c1e;
@@ -26,17 +27,18 @@
 }
 
 body {
-  font-family: 'Retro2';
+  font-family: 'RetroSmall';
   line-height: 1.2;
   background-color: var(--clr-dark-3);
-  color: #FFFFF0;
+  color: var(--clr-text-light);
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .main-container {
   background-color: var(--clr-dark-1);
-  margin: 50px 0 0 0;
   height: 800px;
   width: 1250px;
   border: 3px solid var(--clr-dark-2);
@@ -51,55 +53,21 @@ body {
   "Buttons Map";
 }
 
-button {
-  border: none;
-  outline: none;
-  border-radius: 5px;
-  width: 200px;
-  height: 30px;
-  font-size: 20px;
-  font-family: 'Retro2';
-  background-color: #FFFFF0;
-  color: var(--clr-dark-2);
-}
-
-.dictator-profile {
-  grid-area: Profile;
-  font-family: 'Retro';
-  margin: 25px 0 0 20px;
+.main-container-btn-layout {
+  height: 800px;
+  width: 1250px;
   display: flex;
-  font-size: 15px;
-  gap: 15px;
-  width: 300px;
-  height: 110px;
-}
-
-.dictator-img {
-  width: 125px;
-  height: 125px;
-}
-
-.dictator-info {
-  display: flex;
-  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
-.text-container {
-  grid-area: Text;
-  display: flex;
-  flex-direction: column;
-  margin: 25px 0 0 50px;
-  width: 900px;
-  height: 300px;
-  font-size: 20px;
-  row-gap: 20px;
+.play-btn {
+  border-radius: 10px;
+  width: 300px;
+  font-family: 'Retro';
 }
 
-.btn-container {
-  grid-area: Buttons;
-  width: 250px;
-}
+
 
 .map-container {
   grid-area: Map;
@@ -110,6 +78,7 @@ button {
   margin: -150px 50px 0 0;
   height: 500px;
   background-color: var(--clr-dark-2);
+  position: relative;
 }
 
 .map-container img {
@@ -124,6 +93,6 @@ button {
 
 .map-container h2 {
   position: absolute;
-  top: 33%;
-  left: 52.6%;
+  top: 40px;
+  left: 375px;
 }
