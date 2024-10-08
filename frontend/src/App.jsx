@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Text from "./components/Text";
 import Button from "./components/Buttons";
 import Map from "./components/Map";
@@ -11,6 +11,11 @@ function App() {
   const tickingClock = "/audio/ticking-clock.mp3";
 
   const tickingClockRef = useRef(null);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = "/img/Dictator.webp";
+  }, []);
 
   const startTickingClock = () => {
     tickingClockRef.current = new Audio(tickingClock);
@@ -40,6 +45,7 @@ function App() {
     <div className="main-container">
       {!showContent ? (
         <div className="main-container-btn-layout">
+          <img src="./img/logo.png" alt="Logo" />
           <button className="play-btn" onClick={handlePlayClick}>Play</button>
         </div>
       ) : (
@@ -47,7 +53,7 @@ function App() {
           <div className="dictator-profile">
             <img
               className="dictator-img"
-              src="../public/img/Dictator.webp"
+              src="./img/Dictator.webp"
               alt="Dictator"
               onClick={playAudio}
             />
