@@ -112,79 +112,76 @@ Button {
 
 @media (max-width: 1580px) {
   .main-container {
-    width: 800px;
+    width: 950px;
     height: 600px;
     grid-template-rows: 1fr 1fr;
     position: relative;
   }
 
   .main-container-btn-layout {
-    width: 800px;
-    height: 530px;
+    width: 950px;
+    height: 600px;
   }
 
   .main-container-btn-layout img {
-    width: 200px;
+    width: 275px;
   }
 
   .play-btn {
-    width: 180px;
+    width: 220px;
   }
 
   .map-container {
-    height: 320px;
-    width: 500px;
-    right: 48%;
-    bottom: 10%;
-    position: absolute;
+    height: 350px;
+    margin: -100px 40px 0 0;
   }
 
   .map-container img {
-    width: 80%;
-    height: 80%;
+    width: 70%;
+    height: 70%;
   }
 
   .map-container h1 {
-    font-size: 1.6rem;
+    font-size: 2rem;
   }
 
   .map-container h2 {
-    top: 25px;
-    left: 200px;
+    top: 30px;
+    left: 275px;
   }
 
   .text-container {
-    width: 600px;
-    height: 180px;
-    font-size: 6px;
-    margin: 15px 0 0 30px;
+    width: 700px;
+    height: 220px;
+    font-size: 18px;
+    margin: 20px 0 0 40px;
   }
 
   .dictator-profile {
-    width: 180px;
-    height: 80px;
+    width: 230px;
+    height: 90px;
   }
 
   .dictator-img {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
   }
 
   .btn-container {
-    width: 170px;
-    margin: -100px 0 0 20px;
+    width: 200px;
+    margin: -100px 0 0 25px;
   }
 
   Button {
-    height: 40px;
-    font-size: 16px;
+    height: 50px;
+    font-size: 18px;
   }
 
   .btn-options {
-    width: 40px;
+    width: 50px;
   }
 
   .btn-text {
-    font-size: 16px;
+    font-size: 18px;
   }
 }
