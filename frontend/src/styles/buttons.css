@@ -1,12 +1,8 @@
-button {
-  border: none;
-  outline: none;
+.btn-options {
   border-radius: 50%;
   width: 55px;
-  height: 55px;
-  font-size: 20px;
-  background-color: var(--clr-text-light);
-  color: var(--clr-dark-2);
+  background-color: #FF0000;
+
 }
 
 .btn-container {

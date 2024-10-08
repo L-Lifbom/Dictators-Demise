@@ -12,6 +12,7 @@
 .dictator-img {
   width: 125px;
   height: 125px;
+  cursor: pointer;
 }
 
 .dictator-info {

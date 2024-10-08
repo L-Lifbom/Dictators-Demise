@@ -61,13 +61,20 @@ body {
   align-items: center;
 }
 
+Button {
+  border: none;
+  outline: none;
+  height: 55px;
+  color: var(--clr-dark-2);
+  font-size: 20px;
+  cursor: pointer;
+}
+
 .play-btn {
   border-radius: 10px;
   width: 300px;
   font-family: 'Retro';
 }
-
-
 
 .map-container {
   grid-area: Map;

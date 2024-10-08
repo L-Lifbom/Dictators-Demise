@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Text from "./components/Text";
 import Button from "./components/Buttons";
 import Map from "./components/Map";
@@ -7,8 +7,33 @@ function App() {
   const [age, setAge] = useState(20);
   const [showContent, setShowContent] = useState(false);
 
+  const laughAudio = "/audio/laughter.mp3";
+  const tickingClock = "/audio/ticking-clock.mp3";
+
+  const tickingClockRef = useRef(null);
+
+  const startTickingClock = () => {
+    tickingClockRef.current = new Audio(tickingClock);
+    tickingClockRef.current.loop = true;
+    tickingClockRef.current.play();
+  };
+
+  const stopTickingClock = () => {
+    if (tickingClockRef.current) {
+      tickingClockRef.current.pause();
+      tickingClockRef.current.currentTime = 0;
+    }
+  };
+
+
+  const playAudio = () => {
+    const audio = new Audio(laughAudio);
+    audio.play();
+  };
+
   const handlePlayClick = () => {
     setShowContent(true);
+    startTickingClock();
   };
 
   return (
@@ -24,6 +49,7 @@ function App() {
               className="dictator-img"
               src="../public/img/Dictator.webp"
               alt="Dictator"
+              onClick={playAudio}
             />
             <div className="dictator-info">
               <p>Dictator</p>
