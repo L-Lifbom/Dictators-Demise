@@ -109,3 +109,78 @@ Button {
   top: 40px;
   left: 375px;
 }
+
+@media (max-width: 1280px) {
+  .main-container {
+    width: 1100px;
+    height: 700px;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .main-container-btn-layout {
+    width: 1100px;
+    height: 700px;
+  }
+
+  .main-container-btn-layout img {
+    width: 300px;
+  }
+
+  .play-btn {
+    width: 250px;
+  }
+
+  .map-container {
+    height: 400px;
+    margin: -100px 40px 0 0;
+  }
+
+  .map-container img {
+    width: 70%;
+    height: 70%;
+  }
+
+  .map-container h1 {
+    font-size: 2rem;
+  }
+
+  .map-container h2 {
+    top: 30px;
+    left: 325px;
+  }
+
+  .text-container {
+    width: 800px;
+    height: 250px;
+    font-size: 18px;
+    margin: 20px 0 0 40px;
+  }
+
+  .dictator-profile {
+    width: 250px;
+    height: 100px;
+  }
+
+  .dictator-img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .btn-container {
+    width: 200px;
+    margin: -100px 0 0 25px;
+  }
+
+  Button {
+    height: 50px;
+    font-size: 18px;
+  }
+
+  .btn-options {
+    width: 50px;
+  }
+
+  .btn-text {
+    font-size: 18px;
+  }
+}
