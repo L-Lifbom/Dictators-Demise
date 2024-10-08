@@ -112,26 +112,26 @@ Button {
 
 @media (max-width: 1280px) {
   .main-container {
-    width: 1100px;
-    height: 700px;
+    width: 950px;
+    height: 600px;
     grid-template-rows: 1fr 1fr;
   }
 
   .main-container-btn-layout {
-    width: 1100px;
-    height: 700px;
+    width: 950px;
+    height: 600px;
   }
 
   .main-container-btn-layout img {
-    width: 300px;
+    width: 275px;
   }
 
   .play-btn {
-    width: 250px;
+    width: 220px;
   }
 
   .map-container {
-    height: 400px;
+    height: 350px;
     margin: -100px 40px 0 0;
   }
 
@@ -146,19 +146,19 @@ Button {
 
   .map-container h2 {
     top: 30px;
-    left: 325px;
+    left: 275px;
   }
 
   .text-container {
-    width: 800px;
-    height: 250px;
+    width: 700px;
+    height: 220px;
     font-size: 18px;
     margin: 20px 0 0 40px;
   }
 
   .dictator-profile {
-    width: 250px;
-    height: 100px;
+    width: 230px;
+    height: 90px;
   }
 
   .dictator-img {
