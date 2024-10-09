@@ -10,24 +10,28 @@ function Text() {
     useEffect(() => {
         const audio = new Audio(audio0);
         let index = 0;
-        audio.play()
-            .then(() => {
-                const intervalId = setInterval(() => {
-                    if (index < fullText.length) {
-                        setDisplayedText((prev) => prev + fullText.charAt(index));
-                        index++;
-                    } else {
-                        clearInterval(intervalId);
-                    }
-                }, speed);
-            })
-            .catch((error) => {
-                console.error("Audio playback failed:", error);
-            });
+
+        const startTextAndAudio = setTimeout(() => {
+            audio.play()
+                .then(() => {
+                    const intervalId = setInterval(() => {
+                        if (index < fullText.length) {
+                            setDisplayedText((prev) => prev + fullText.charAt(index));
+                            index++;
+                        } else {
+                            clearInterval(intervalId);
+                        }
+                    }, speed);
+                })
+                .catch((error) => {
+                    console.error("Audio playback failed:", error);
+                });
+        }, 1000);
 
         return () => {
             audio.pause();
             audio.currentTime = 0;
+            clearTimeout(startTextAndAudio);
         };
     }, []);
 

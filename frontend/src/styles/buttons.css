@@ -3,7 +3,6 @@
   width: 55px;
   background-color: #c70d0d;
   border: 5px solid var(--clr-dark-3);
-
 }
 
 .btn-container {
@@ -23,3 +22,5 @@
   font-size: 20px;
   margin: auto 0 auto 10px;
 }
+
+

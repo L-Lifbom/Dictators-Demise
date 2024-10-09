@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
 function Buttons() {
+
+
+
     // Initialize button configurations with default values
     const [buttons, setButtons] = useState([
         { text: 'Begin the Collapse', onClick: () => handleStart(0) },

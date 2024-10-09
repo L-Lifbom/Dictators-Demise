@@ -45,12 +45,29 @@ body {
   box-shadow: 
     0 20px 30px rgba(0, 0, 0, 0.4),
     0 10px 15px rgba(0, 0, 0, 0.2);
+
+}
+
+.content {
+  height: 800px;
+  width: 1250px;
   display: grid;
+  position: relative;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   grid-template-areas: 
   "Profile Text"
   "Buttons Map";
+}
+
+.fade-in {
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
 }
 
 .main-container-btn-layout {
@@ -59,10 +76,11 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
-  row-gap: 20px;
+  row-gap: 50px;
+  position: relative;
 }
 
-.main-container-btn-layout img {
+.logo-img {
   width: 350px;
   margin: 100px 0 0 0;
 }
@@ -73,6 +91,16 @@ body {
   font-family: 'Retro';
 }
 
+.start-volume {
+  font-size: 40px;
+  position: absolute;
+  bottom: 50px;
+  cursor: pointer;
+  filter: invert(100%);
+  width: 50px;
+  height: 50px;
+}
+
 Button {
   border: none;
   outline: none;
@@ -80,6 +108,49 @@ Button {
   color: var(--clr-dark-2);
   font-size: 20px;
   cursor: pointer;
+}
+
+.exit-icon-container {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.exit-icon {
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.exit-text {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+}
+
+.setting-icon-container {
+  position: absolute;
+  bottom: 20px;
+  left: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.setting-icon {
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.setting-text {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+  position: absolute;
+  top: -23px; 
+  left: -10px;
 }
 
 .map-container {
@@ -111,77 +182,5 @@ Button {
 }
 
 @media (max-width: 1580px) {
-  .main-container {
-    width: 950px;
-    height: 600px;
-    grid-template-rows: 1fr 1fr;
-    position: relative;
-  }
 
-  .main-container-btn-layout {
-    width: 950px;
-    height: 600px;
-  }
-
-  .main-container-btn-layout img {
-    width: 275px;
-  }
-
-  .play-btn {
-    width: 220px;
-  }
-
-  .map-container {
-    height: 350px;
-    margin: -100px 40px 0 0;
-  }
-
-  .map-container img {
-    width: 70%;
-    height: 70%;
-  }
-
-  .map-container h1 {
-    font-size: 2rem;
-  }
-
-  .map-container h2 {
-    top: 30px;
-    left: 275px;
-  }
-
-  .text-container {
-    width: 700px;
-    height: 220px;
-    font-size: 18px;
-    margin: 20px 0 0 40px;
-  }
-
-  .dictator-profile {
-    width: 230px;
-    height: 90px;
-  }
-
-  .dictator-img {
-    width: 100px;
-    height: 100px;
-  }
-
-  .btn-container {
-    width: 200px;
-    margin: -100px 0 0 25px;
-  }
-
-  Button {
-    height: 50px;
-    font-size: 18px;
-  }
-
-  .btn-options {
-    width: 50px;
-  }
-
-  .btn-text {
-    font-size: 18px;
-  }
 }
