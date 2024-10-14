@@ -1,8 +1,9 @@
 import OpenAI from "openai";
+import dotenv from 'dotenv';
+dotenv.config();
 
 const openai = new OpenAI({
-    organization: "org-YMlEsT9g7onoLqWJmnNdXuCG",
-    project: "$PROJECT_ID",
+    apiKey: process.env.OPENAI_API_KEY,  // Ensure your API key is in .env file
 });
 
-module.exports = openai;
+export default openai;

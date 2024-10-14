@@ -1,12 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import Text from "./components/Text";
-import Button from "./components/Buttons";
-import Map from "./components/Map";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDoorClosed, faDoorOpen, faGear } from '@fortawesome/free-solid-svg-icons';
+import Game from "./components/Game";
 
 function App() {
-  const [age, setAge] = useState(20);
   const [showContent, setShowContent] = useState(false);
   const [isPlayingTheme, setIsPlayingTheme] = useState(false);
   const [volumeIcon, setVolumeIcon] = useState("./img/icons/mute.png");
@@ -15,7 +10,6 @@ function App() {
   const [transitioning, setTransitioning] = useState(false);
 
   const themeSong = "/music/theme-song.mp3";
-  const laughAudio = "/audio/laughter.mp3";
   const tickingClock = "/audio/ticking-clock.mp3";
 
   const themeSongRef = useRef(null);
@@ -37,11 +31,6 @@ function App() {
       tickingClockRef.current.pause();
       tickingClockRef.current.currentTime = 0;
     }
-  };
-
-  const playAudio = () => {
-    const audio = new Audio(laughAudio);
-    audio.play();
   };
 
   const fadeOutAudio = (audio, duration, callback) => {
@@ -120,41 +109,7 @@ function App() {
           </div>
         ) : (
           <>
-            <div className="dictator-profile">
-              <img
-                className="dictator-img"
-                src="./img/Dictator.webp"
-                alt="Dictator"
-                onClick={playAudio}
-              />
-              <div className="dictator-info">
-                <p>Dictator</p>
-                <p>Age: {age}</p>
-              </div>
-            </div>
-            <Text />
-            <Button />
-            <Map />
-            <div
-              className="exit-icon-container"
-              onMouseEnter={() => setIsExitHovered(true)}
-              onMouseLeave={() => setIsExitHovered(false)}
-              onClick={handleExitClick}
-            >
-              {isExitHovered && <span className="exit-text">Exit</span>}
-              <FontAwesomeIcon
-                className="exit-icon"
-                icon={isExitHovered ? faDoorOpen : faDoorClosed}
-              />
-            </div>
-            <div
-              className="setting-icon-container"
-              onMouseEnter={() => setIsGearHovered(true)}
-              onMouseLeave={() => setIsGearHovered(false)}
-            >
-              {isGearHovered && <span className="setting-text">Settings</span>}
-              <FontAwesomeIcon className="setting-icon" icon={faGear} />
-            </div>
+            <Game handleExitClick={handleExitClick} isExitHovered={isExitHovered} setIsExitHovered={setIsExitHovered} isGearHovered={isGearHovered} setIsGearHovered={setIsGearHovered} />
           </>
         )}
       </div>
