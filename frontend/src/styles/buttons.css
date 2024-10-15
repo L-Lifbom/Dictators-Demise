@@ -3,6 +3,12 @@
   width: 55px;
   background-color: #c70d0d;
   border: 5px solid var(--clr-dark-3);
+  min-width: 50px;
+  max-width: 50px;
+}
+
+.btn-options:hover {
+  background-color: #6c1414;
 }
 
 .btn-container {

@@ -1,11 +1,10 @@
 import React from 'react';
 
-function GameMap() {
+function GameMap({ round }) {
     return (
         <div className="map-container">
-            <h1>World Map</h1>
-            <h2>Population: 8,180,881,126</h2>
-            <img src="/img/world-map.png" alt="World Map" />
+            <h1>World Map - Round {round}</h1>
+            <img src={`/img/world-map-${round}.png`} alt={`World Map - Round ${round}`} />
         </div>
     );
 };

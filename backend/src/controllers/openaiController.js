@@ -1,30 +1,32 @@
 import openai from '../config/openai.js';
 
-// Function to generate the story based on player's choice
 export const generateStory = async (req, res) => {
-    const { choice, previousChoices, round } = req.body;
+    const { choice, previousChoices, previousText, round } = req.body;
 
-    // Construct the prompt for OpenAI to generate the next part of the story
     let prompt = `
-    You are the ruthless global dictator in the game "Dictator's Demise." Your goal is to destroy the world as fast as possible. Based on the player's current choice, generate a catastrophic outcome that escalates the global crisis in exactly 45-50 words.
+You are the ruthless global dictator in the interactive game "Dictator's Demise." Your goal is to destroy the world as fast as possible. The story must flow seamlessly, continuing from the last event. You must narrate the player's current choice and how it builds on previous decisions, creating logical and catastrophic outcomes. Keep the narrative between 20 to 25 words.
 
-    The player's current choice is: ${choice}.
-    The player's previous choices were: ${previousChoices.join(", ")}.
+Previous narrative: ${previousText}
+The player's current choice is: ${choice}.
+The player's previous choices were: ${previousChoices.join(", ")}.
 
-    The narrative must be immersive and directed at the dictator, showing the consequences of the latest decision. Do not break the role of the narrator. Provide a short, concise result.
-    If the player has reached 10 rounds or more, focus on complete global destruction or a faint chance of survival for humanity.
+Continue the narrative, addressing the dictator directly in exactly 20 to 25 words.
+
+If the player has reached 6 rounds or more, provide a very brief description (no more than 25 words) of the final outcome based on the player's choices.
+
+At the end of your narrative, write 'Outcome: win' if the player successfully eradicated humanity, or 'Outcome: lose' if humanity survives.
     `;
 
     try {
         const response = await openai.chat.completions.create({
-            model: 'gpt-3.5-turbo',
+            model: 'gpt-4',
             messages: [
                 {
                     role: "user",
                     content: prompt,
                 },
             ],
-            max_tokens: 500,
+            max_tokens: 70,
             temperature: 0.8,
         });
 
@@ -38,25 +40,72 @@ export const generateStory = async (req, res) => {
     }
 };
 
-// Function to generate new destructive options
 export const generateOptions = async (req, res) => {
-    const { choice, previousChoices, round } = req.body;
+    const { choice, previousChoices, previousText, round } = req.body;
 
-    // Construct the prompt for OpenAI to generate the story and the new options
     let prompt = `
-    You are the ruthless global dictator in the game "Dictator's Demise." Based on the player's current choice, generate a catastrophic outcome that escalates the global crisis in exactly 45-50 words. Then, provide exactly six new, creative, and destructive choices, each consisting of 2-5 words, to bring humanity closer to ruin.
+You are the relentless global dictator in the game "Dictator's Demise." Based on the player's previous narrative and choices, generate a coherent continuation of the story.
 
-    The player's current choice is: ${choice}.
-    The player's previous choices were: ${previousChoices.join(", ")}.
+The current round is: ${round}.
 
-    Provide the result in this format:
-    1. Story: A brief narrative of the current catastrophic outcome.
-    2. Options: A numbered list of six new, destructive actions to choose from.
+- If the current round is less than 6:
+
+    - Continue the narrative, addressing the dictator directly.
+
+    - Do not include any titles like 'Story:'.
+
+    - After your narrative, write exactly '[OPTIONS]' on a new line.
+
+    - Then, on the following lines, provide exactly six new creative and destructive options that align with the ongoing narrative and the choices made so far.
+
+    - Each option must be on a new line, starting with '- '.
+
+    - **Each option must be between 2 and 6 words.**
+
+    - Do not include any labels like 'Options:' or 'Story:'.
+
+    - Do not include any extra text before or after the options.
+
+- If the current round is exactly 6:
+
+    - **Provide a very brief description (no more than 25 words) of the final outcome based on the player's choices.**
+
+    - **Determine if the player has successfully eradicated humanity or if humanity survives.**
+
+    - At the end of your narrative, write 'Outcome: win' if the player successfully eradicated humanity, or 'Outcome: lose' if humanity survives.
+
+    - **Do not provide new options in this case.**
+
+Ensure that the output strictly follows this format:
+
+[Narrative]
+
+[If round <6:]
+
+[OPTIONS]
+
+- Option 1
+
+- Option 2
+
+- Option 3
+
+- Option 4
+
+- Option 5
+
+- Option 6
+
+[Each option must be between 2 and 6 words.]
+
+Previous narrative: ${previousText}
+The player's current choice is: ${choice}.
+The player's previous choices were: ${previousChoices.join(", ")}.
     `;
 
     try {
         const response = await openai.chat.completions.create({
-            model: 'gpt-3.5-turbo',
+            model: 'gpt-4',
             messages: [
                 {
                     role: "user",
@@ -69,38 +118,36 @@ export const generateOptions = async (req, res) => {
 
         const result = response.choices[0].message.content.trim();
 
-        // Extract story and options from the response
-        const [story, optionsPart] = result.split('Options:');
-        const newOptions = optionsPart
-            ? optionsPart.trim().split('\n').map(option => option.replace(/^\d+\.\s*/, '').trim())
-            : [];
+        console.log('OpenAI API Response:', result);
 
-        res.json({ story: story.trim(), newOptions });
+        let storyText = '';
+        let newOptions = [];
+        const outcomeMatch = result.match(/Outcome:\s*(win|lose)/i);
 
+        if (round === 6) {
+            // Game over scenario
+            storyText = result.replace(/Outcome:\s*(win|lose)/i, '').trim();
+            const outcome = outcomeMatch ? outcomeMatch[1].toLowerCase() : null;
+            res.json({ story: storyText, outcome, newOptions: [] });
+        } else {
+            // Game continues
+            const optionsStartIndex = result.indexOf('[OPTIONS]');
+            if (optionsStartIndex !== -1) {
+                storyText = result.substring(0, optionsStartIndex).trim();
+                const optionsPart = result.substring(optionsStartIndex + '[OPTIONS]'.length).trim();
+                const optionsLines = optionsPart.split('\n');
+                newOptions = optionsLines
+                    .map(line => line.replace(/^- /, '').trim())
+                    .filter(line => line !== '' && line.split(' ').length >= 2 && line.split(' ').length <= 6);
+                res.json({ story: storyText, newOptions });
+            } else {
+                // If options are not found, return an error
+                console.error('Options not found in the API response.');
+                res.status(500).json({ error: 'Failed to generate options' });
+            }
+        }
     } catch (error) {
         console.error('Error generating options:', error);
-        if (!res.headersSent) {
-            return res.status(500).json({ error: 'Failed to generate options' });
-        }
+        res.status(500).json({ error: 'Failed to generate options' });
     }
 };
-
-// Helper function to extract the new options from the AI's response
-function extractOptions(storyText) {
-    const options = [];
-    const regex = /(?:\n|^)Option \d+:\s*(.+?)(?=(?:\nOption \d+:|\n*$))/g;
-    let match;
-    while ((match = regex.exec(storyText)) !== null) {
-        options.push(match[1].trim());
-    }
-    return options.length > 0
-        ? options
-        : [
-              "Initiate a global blackout",
-              "Release a deadly airborne toxin",
-              "Hack into defense systems to cause misfires",
-              "Spread disinformation to incite riots",
-              "Trigger a catastrophic climate event",
-              "Sabotage international peace treaties",
-          ];
-}
