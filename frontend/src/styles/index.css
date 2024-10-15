@@ -157,7 +157,6 @@ Button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  row-gap: 10px;
   margin: -150px 50px 0 0;
   height: 500px;
   background-color: var(--clr-dark-2);
@@ -165,20 +164,35 @@ Button {
 }
 
 .map-container img {
-  margin: 20px 0 0 0;
   width: 80%;
   height: 80%;
+  object-fit: contain;
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: opacity 2s ease-in-out;
 }
 
 .map-container h1 {
   font-size: 2.5rem;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
 }
 
-.map-container h2 {
-  position: absolute;
-  top: 40px;
-  left: 375px;
+.old-image {
+  opacity: 1;
 }
+
+.new-image {
+  opacity: 0;
+}
+
+.fade-in {
+  opacity: 1;
+}
+
 
 .game-over-modal {
   position: fixed;
