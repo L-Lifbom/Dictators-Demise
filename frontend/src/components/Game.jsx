@@ -99,8 +99,12 @@ function Game({ handleExitClick, isExitHovered, setIsExitHovered, isGearHovered,
 
             if (data.outcome) {
                 setOutcome(data.outcome);
-                setGameOver(true);
-                setButtons([]);
+                if (data.outcome === 'lose') {
+                    setGameOver(true);  // Set gameOver only if the outcome is 'lose'
+                } else {
+                    setGameOver(false);  // Ensure gameOver is false when the player wins
+                    setButtons([]);  // Disable buttons upon win
+                }
             } else if (data.newOptions && data.newOptions.length > 0) {
                 const newButtons = data.newOptions.map((option) => ({
                     text: option,
@@ -112,6 +116,7 @@ function Game({ handleExitClick, isExitHovered, setIsExitHovered, isGearHovered,
                 alert('No new options were provided. The game cannot continue.');
                 setButtons([]);
             }
+            
 
             setFullText(storyText);
             setPreviousChoices((prevChoices) => [...prevChoices, choiceText]);
@@ -181,7 +186,7 @@ function Game({ handleExitClick, isExitHovered, setIsExitHovered, isGearHovered,
 
     return (
         <>
-            {gameOver ? (
+            {gameOver || outcome === 'win' ? (
                 <div className="game-over-modal">
                     <h1 className="game-over-text">
                         {outcome === 'win' ? 'Winner, You successfully eradicated humanity' : 'Game Over, Humanity won'}
