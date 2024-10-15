@@ -19,8 +19,8 @@ At the end of your narrative, write 'Outcome: win' if the player successfully er
 
     try {
         const response = await openai.chat.completions.create({
-            // model: 'gpt-4',
-            model: 'gpt-3.5-turbo',
+            model: 'gpt-4',
+            // model: 'gpt-3.5-turbo',
             messages: [
                 {
                     role: "user",
@@ -110,8 +110,8 @@ The player's previous choices were: ${previousChoices.join(", ")}.
 
     try {
         const response = await openai.chat.completions.create({
-            // model: 'gpt-4',
-            model: 'gpt-3.5-turbo',
+            model: 'gpt-4',
+            // model: 'gpt-3.5-turbo',
             messages: [
                 {
                     role: "user",
