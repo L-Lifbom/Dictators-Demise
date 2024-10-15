@@ -115,7 +115,15 @@ function Game({ handleExitClick, isExitHovered, setIsExitHovered, isGearHovered,
 
             setFullText(storyText);
             setPreviousChoices((prevChoices) => [...prevChoices, choiceText]);
+            previousChoicesRef.current = [...previousChoicesRef.current, choiceText];
+            fullTextRef.current = storyText;
             roundRef.current += 1;
+
+            if (roundRef.current > 6 && !gameOver) {
+                setGameOver(true);
+                setOutcome('lose');
+                setButtons([]);
+            }
 
         } catch (error) {
             console.error('Error making API call:', error);
@@ -156,13 +164,19 @@ function Game({ handleExitClick, isExitHovered, setIsExitHovered, isGearHovered,
     };
 
     const handleExit = () => {
-        handleExitClick();
-
+        if (audioRef.current) {
+            audioRef.current.pause();
+            audioRef.current.currentTime = 0;
+            audioRef.current = null;
+        }
+    
         if (sovietAudioRef.current) {
             sovietAudioRef.current.pause();
             sovietAudioRef.current.currentTime = 0;
             sovietAudioRef.current = null;
         }
+    
+        handleExitClick();
     };
 
     return (
