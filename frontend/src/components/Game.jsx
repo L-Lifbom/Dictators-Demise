@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Text from './Text';
 import Buttons from './Buttons';
 import GameMap from "./GameMap";
@@ -21,9 +21,12 @@ function Game({ handleExitClick, isExitHovered, setIsExitHovered, isGearHovered,
     const [round, setRound] = useState(1);
     const [age, setAge] = useState(20);
 
+    const [introPlayed, setIntroPlayed] = useState(false);
+    const audioRef = useRef(null);
+
     const speed = 56;
     const laughAudio = "/audio/laughter.mp3";
-    const introAudio = "/speech/0-TTS.mp3"; // Path to your intro MP3 file
+    const introAudio = "/speech/0-TTS.mp3";
 
     const playAudio = () => {
         const audio = new Audio(laughAudio);
@@ -31,9 +34,12 @@ function Game({ handleExitClick, isExitHovered, setIsExitHovered, isGearHovered,
     };
 
     useEffect(() => {
-        // Play the intro audio when the component mounts
-        const audio = new Audio(introAudio);
-        audio.play();
+        if (!introPlayed) {
+            const audio = new Audio(introAudio);
+            audioRef.current = audio;
+            audio.play();
+            setIntroPlayed(true);
+        }
 
         let index = 0;
         const intervalId = setInterval(() => {
@@ -48,10 +54,14 @@ function Game({ handleExitClick, isExitHovered, setIsExitHovered, isGearHovered,
         return () => {
             clearInterval(intervalId);
         };
-    }, [fullText]);
+    }, [fullText, introPlayed]);
 
     const handleStart = async (index) => {
-        console.log(`Button ${index + 1} clicked!`);
+        if (audioRef.current) {
+            audioRef.current.pause();
+            audioRef.current.currentTime = 0;
+            audioRef.current = null;
+        }
     
         const payload = {
             choice: buttons[index].text,
@@ -60,7 +70,6 @@ function Game({ handleExitClick, isExitHovered, setIsExitHovered, isGearHovered,
         };
     
         try {
-            // Fetch the story and new options from the backend
             const response = await fetch('http://localhost:5001/api/options', {
                 method: 'POST',
                 headers: {
@@ -74,12 +83,12 @@ function Game({ handleExitClick, isExitHovered, setIsExitHovered, isGearHovered,
             }
     
             const data = await response.json();
-            setFullText(data.story);  // Set the new story
-            setDisplayedText('');  // Reset the displayed text for the new animation
+            setFullText(data.story);
+            setDisplayedText('');
     
-            const newButtons = data.newOptions.map((option, i) => ({
+            const newButtons = data.newOptions.map((option, newIndex) => ({
                 text: option,
-                onClick: () => handleStart(i),
+                onClick: () => handleStart(newIndex), // Use newIndex for new options
             }));
             setButtons(newButtons);
     
