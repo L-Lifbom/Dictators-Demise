@@ -27,3 +27,6 @@ Dictator's Demise is a interactive web experience where users play the role of a
 
 - Open your browser and navigate to: 
 `http://localhost:5173`
+
+## Visuals
+![Screenshot of Dictator's Demise](./frontend/public/Screenshot.png)
